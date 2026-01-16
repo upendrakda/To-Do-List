@@ -3,9 +3,8 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const list=[];
   const [text, setText] = useState('');
-  const [task, setTask] = useState('');
+  const [task, setTask] = useState([]);
 
   return (
     <div className='container'>
@@ -20,14 +19,21 @@ function App() {
 
       <button 
         className='add-btn'
-        onClick={() => setText('')}
+        onClick={() => {
+          setText('');
+          setTask([{
+            id: task.length + 1,
+            text: text}, ...task]);
+        }}
       >+</button>
       
+      {task.map(item => (
       <div className='wrapper'>
-        <input type="checkbox" id='test' className="checkbox" />
-        <label htmlFor="test" className='taskText'>Hello World!!</label>
+        <input type="checkbox" id={item.id} className="checkbox" />
+        <label htmlFor={item.id} className='taskText'>{item.text}</label>
         <button className='delete'>&#10006;</button>
       </div>
+      ))}
 
     </div>
   );
