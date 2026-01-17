@@ -5,7 +5,6 @@ import './App.css';
 function App() {
   const [text, setText] = useState('');
   const [task, setTask] = useState([]);
-  const [count, setCount] = useState(0);
 
   function addTask(){
     if (!text.trim()){
@@ -15,21 +14,28 @@ function App() {
 
     setTask([{
       id: Math.random().toString(36).slice(2, 9),
-      text: text}, ...task]);
+      text: text,
+      completed: false}, ...task]);
     setText('');
-    setCount(count+1);
   }
 
   function deleteTask(id){
     setTask(task.filter(t => t.id !== id));
-    setCount(count-1);
   }
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       addTask();
     }
-  };
+  }
+
+  function toggleComplete(id) {
+  setTask(
+    task.map(t =>
+      t.id === id ? { ...t, completed: !t.completed } : t
+    )
+  );
+  }
 
   return (
     <div className='container'>
@@ -51,7 +57,13 @@ function App() {
 
         {task.map(item => (
         <div className='wrapper' key={item.id}>
-          <input type="checkbox" id={item.id} className="checkbox" />
+          <input 
+            type="checkbox" 
+            id={item.id} 
+            className="checkbox"
+            checked={item.completed}
+            onChange={() => toggleComplete(item.id)}
+          />
           <label htmlFor={item.id} className='taskText'>{item.text}</label>
           <button 
             className='delete'
@@ -62,7 +74,7 @@ function App() {
       </div>
 
       <footer>
-        <h3>Your remaining todos: {count}</h3>
+        <h3>Your remaining todos: {task.filter(t => !t.completed).length}</h3>
         <p><q>What you do today can improve all your tomorrows</q> — Ralph Marston</p>
       </footer>
     </div>

@@ -43,7 +43,7 @@
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background-color: #959595;
+  background-color: #7a7a7a;
   padding: 8px 16px;
   cursor: pointer;
   margin-left: 10px;
@@ -55,7 +55,6 @@
 }
 
 .task input{
-
   border-bottom: 2px solid #ccc; 
   outline: none;            
   font-size: 16px;
