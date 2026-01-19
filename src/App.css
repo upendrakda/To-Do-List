@@ -116,6 +116,24 @@ p{
   color: #888;
 }
 
+.save-btn{
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #7a7a7a;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 78%;
+  transition: background-color 0.3s;
+}
+
+.save-btn:hover{
+  background-color: black;
+}
+
 @media screen and (max-width: 600px) {
   .container {
   width: 310px;
@@ -127,5 +145,9 @@ p{
 
   .wrapper {
   width: 260px;
+  }
+
+  .save-btn{
+    margin-left: 63%;
   }
 }
