@@ -75,6 +75,12 @@ function App() {
             onClick={addTask}
           >+</button>
 
+          <div className='btn-group'>
+            <button className="filter-btn" style={{marginLeft:"0px"}}>All</button>
+            <button className="filter-btn">Completed</button>
+            <button className="filter-btn">Pending</button>
+          </div>
+
           {task.map(item => (
           <div className='wrapper' key={item.id}>
             <input 
