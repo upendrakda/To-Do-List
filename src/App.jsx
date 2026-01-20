@@ -1,14 +1,21 @@
 import React from 'react';
-import { useState} from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
   const [text, setText] = useState('');
-  const [task, setTask] = useState([]);
   const [filter, setFilter] = useState("all");
+  const [task, setTask] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
 
-  function addTask(){
-    if (!text.trim()){
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(task));
+  }, [task]);
+
+  function addTask() {
+    if (!text.trim()) {
       setText('');
       return;
     }
@@ -16,7 +23,8 @@ function App() {
     setTask([{
       id: Math.random().toString(36).slice(2, 9),
       text: text,
-      completed: false}, ...task]);
+      completed: false
+    }, ...task]);
     setText('');
   }
 
@@ -37,23 +45,6 @@ function App() {
       )
     );
   }
-
-  const downloadHTML = () => {
-    const htmlContent = document.documentElement.outerHTML;
-    const blob = new Blob([htmlContent], { type: "text/html" });
-    const url = URL.createObjectURL(blob);
-
-    // Create a date string (YYYY-MM-DD format)
-    const now = new Date();
-    const dateString = now.toISOString().split("T")[0];
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `today's_todo-${dateString}.html`; // filename with date
-    link.click();
-
-    URL.revokeObjectURL(url);
-  };
 
   const filteredTasks = task.filter(t => {
     if (filter === "completed") return t.completed;
@@ -121,13 +112,6 @@ function App() {
           
           <p><q>What you do today can improve all your tomorrows</q> — Ralph Marston</p>
         </footer>
-      </div>
-
-      <div>
-        <button 
-          className='save-btn'
-          onClick={downloadHTML}
-          >Save Page</button>
       </div>
   </>
   );
