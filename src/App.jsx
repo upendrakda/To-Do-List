@@ -1,11 +1,11 @@
 import React from 'react';
-import { useState, useRef } from 'react';
+import { useState} from 'react';
 import './App.css';
 
 function App() {
   const [text, setText] = useState('');
   const [task, setTask] = useState([]);
-  const pdfRef = useRef();
+  const [filter, setFilter] = useState("all");
 
   function addTask(){
     if (!text.trim()){
@@ -55,10 +55,15 @@ function App() {
     URL.revokeObjectURL(url);
   };
 
+  const filteredTasks = task.filter(t => {
+    if (filter === "completed") return t.completed;
+    if (filter === "pending") return !t.completed;
+    return true;
+  });
 
   return (
     <>
-      <div className='container' ref={pdfRef}>
+      <div className='container'>
         <div className="content">
           <h1>Your To Do</h1>
           <input 
@@ -76,26 +81,38 @@ function App() {
           >+</button>
 
           <div className='btn-group'>
-            <button className="filter-btn" style={{marginLeft:"0px"}}>All</button>
-            <button className="filter-btn">Completed</button>
-            <button className="filter-btn">Pending</button>
+            <button 
+              className={`filter-btn ${filter === "all" ? "active" : ""}`}
+              style={{marginLeft:"0px"}} 
+              onClick={() => setFilter("all")}>All
+            </button>
+
+            <button 
+              className={`filter-btn ${filter === "completed" ? "active" : ""}`}  
+              onClick={() => setFilter("completed")}>Completed
+            </button>
+
+            <button 
+              className={`filter-btn ${filter === "pending" ? "active" : ""}`} 
+              onClick={() => setFilter("pending")}>Pending
+            </button>
           </div>
 
-          {task.map(item => (
-          <div className='wrapper' key={item.id}>
-            <input 
-              type="checkbox" 
-              id={item.id} 
-              className="checkbox"
-              checked={item.completed}
-              onChange={() => toggleComplete(item.id)}
-            />
-            <label htmlFor={item.id} className='taskText'>{item.text}</label>
-            <button 
-              className='delete'
-              onClick={() => deleteTask(item.id)}
-              >&#10006;</button>
-          </div>
+          {filteredTasks.map(item => (
+            <div className='wrapper' key={item.id}>
+              <input 
+                type="checkbox" 
+                id={item.id} 
+                className="checkbox"
+                checked={item.completed}
+                onChange={() => toggleComplete(item.id)}
+              />
+              <label htmlFor={item.id} className='taskText'>{item.text}</label>
+              <button 
+                className='delete'
+                onClick={() => deleteTask(item.id)}
+                >&#10006;</button>
+            </div>
           ))}
         </div>
 

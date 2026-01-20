@@ -134,27 +134,25 @@ p{
   background-color: black;
 }
 
-/* .btn-group {
-  display: flex;
-  justify-content: flex-start;
-} */
-
-
-.filter-btn{
+.filter-btn {
   color: white;
   font-weight: bold;
   font-size: 0.8rem;
+  padding: 5px 15px;
+  margin: 10px;
   border: none;
   border-radius: 30px;
   background-color: #7a7a7a;
-  padding: 5px 15px;
   cursor: pointer;
-  margin: 10px;
   transition: background-color 0.3s;
 }
 
 .filter-btn:hover{
   background-color: black;
+}
+
+.filter-btn.active {
+  background: black;
 }
 
 @media screen and (max-width: 600px) {
