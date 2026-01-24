@@ -42,6 +42,8 @@ The app supports adding, completing, deleting, filtering tasks, and **persists d
 
 ## 🚀 Getting Started
 
+🔗 Live app: https://todolist-upendrakda.netlify.app/
+
 Follow these steps to run the project locally:
 
 ### 1. Clone the repository
@@ -61,7 +63,7 @@ npm install
 
 ### 4. Start the development server
 ```bash
-npm start
+npm run dev
 ```
 
 ---
