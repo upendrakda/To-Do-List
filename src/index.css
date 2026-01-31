@@ -9,6 +9,29 @@ body {
   display: flex;
   justify-content: center; /* horizontal center */
   align-items: center;     /* vertical center */
+}
 
-  background-color: #f5f5f5; /* optional */
+:root {
+  /* Light theme defaults */
+  --bg-color: #f5f5f5;
+  --container-bg: #ffffff;
+  --text-color: #000000;
+  --border-color: #ccc;
+  --accent-color: #7a7a7a;
+  --accent-hover: #000000;
+  --placeholder-color: #888;
+  --background: #f5f5f5;
+  --btn-color: #7a7a7a;
+}
+
+body.dark {
+  --bg-color: #121212;
+  --container-bg: #1e1e1e;
+  --text-color: #f5f5f5;
+  --border-color: #555;
+  --accent-color: #444;
+  --accent-hover: #000000;
+  --placeholder-color: #aaa;
+  --background: #333333;
+  --btn-color: #b6b6b6;
 }

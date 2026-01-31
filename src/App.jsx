@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { useState, useEffect } from 'react';
 import './App.css';
 
@@ -10,9 +10,24 @@ function App() {
     return savedTasks ? JSON.parse(savedTasks) : [];
   });
 
+  // Theme state: check localStorage first, else system preference
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) return savedTheme;
+
+    // detect system preference
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return prefersDark ? "dark" : "light";
+  });
+
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(task));
   }, [task]);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.body.className = theme;
+  }, [theme]); 
 
   function addTask() {
     if (!text.trim()) {
@@ -46,6 +61,11 @@ function App() {
     );
   }
 
+  // Toggle theme manually
+  function toggleTheme() {
+    setTheme(prev => prev === "light" ? "dark" : "light");
+  }  
+
   const filteredTasks = task.filter(t => {
     if (filter === "completed") return t.completed;
     if (filter === "pending") return !t.completed;
@@ -54,7 +74,12 @@ function App() {
 
   return (
     <>
-      <div className='container'>
+      <div>
+        <button className='theme-btn' onClick={toggleTheme}>
+          {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
+        </button>
+      </div>
+      <div className={`container ${theme}`}>
         <div className="content">
           <h1>Your To Do</h1>
           <input 
