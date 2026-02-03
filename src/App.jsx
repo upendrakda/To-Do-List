@@ -133,8 +133,16 @@ function App() {
         </div>
 
         <footer>
-          <h3>Your remaining todos: {task.filter(t => !t.completed).length}</h3>
-          
+          {filter === "all" && (
+            <h3>Your remaining todos: {task.filter(t => !t.completed).length}</h3>
+          )}
+          {filter === "completed" && (
+            <h3>Your completed todos: {task.filter(t => t.completed).length}</h3>
+          )}
+          {filter === "pending" && (
+            <h3>Your pending todos: {task.filter(t => !t.completed).length}</h3>
+          )}
+
           <p><q>What you do today can improve all your tomorrows</q> — Ralph Marston</p>
         </footer>
       </div>
