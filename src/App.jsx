@@ -81,7 +81,7 @@ function App() {
       </div>
       <div className={`container ${theme}`}>
         <div className="content">
-          <h1>Your To Do</h1>
+          <h1>Mero List</h1>
           <input 
             type="text" 
             className='input' 
